@@ -1,0 +1,43 @@
+ local _x1c2a = {
+    A = "🅐", B = "🅑", C = "🅒", D = "🅓", E = "🅔", F = "🅕",
+    G = "🅖", H = "🅗", I = "🅘", J = "🅙", K = "🅚", L = "🅛",
+    M = "🅜", N = "🅝", O = "🅞", P = "🅟", Q = "🅠", R = "🅡",
+    S = "🅢", T = "🅣", U = "🅤", V = "🅥", W = "🅦", X = "🅧",
+    Y = "🅨", Z = "🅩"
+}
+
+local _x3d4e = true
+
+local function _x5f6b(_x8c9d)
+    local _xe0f1 = ""
+    for _x1 = 1, #_x8c9d do
+        local _xb0c2 = _x8c9d:sub(_x1, _x1):upper()
+        local _x9a78 = _x1c2a[_xb0c2] or _xb0c2
+        _xe0f1 = _xe0f1 .. _x9a78
+    end
+    return _xe0f1
+end
+
+local function _x7c8d()
+    local _x1a2b = game:GetService("TextChatService")
+    local _x3c4d = game:GetService("Players").LocalPlayer
+
+    _x1a2b.OnIncomingMessage = function(_x5d6e)
+        if _x5d6e.TextSource and _x5d6e.TextSource.UserId == _x3c4d.UserId then
+            local _xe7f8 = _x5d6e.Text
+            if _xe7f8:lower() == ";off" then
+                _x3d4e = false
+            elseif _xe7f8:lower() == ";on" then
+                _x3d4e = true
+            elseif _x3d4e then
+                _x5d6e.Text = _x5f6b(_xe7f8)
+            end
+        end
+    end
+end
+
+local _x1f2a = game:GetService("TextChatService")
+
+if _x1f2a then
+    _x7c8d()
+end
